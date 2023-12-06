@@ -4,9 +4,10 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
+@Entity
 public class User {
 	@Id
-	//i'm not sure about this @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String firstName;
 	private String lastName;
