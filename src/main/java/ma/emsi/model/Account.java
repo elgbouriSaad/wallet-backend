@@ -2,6 +2,7 @@ package ma.emsi.model;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

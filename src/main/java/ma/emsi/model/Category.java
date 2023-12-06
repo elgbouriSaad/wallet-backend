@@ -1,10 +1,8 @@
 package ma.emsi.model;
 import java.util.List;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+@Entity
 public class Category {
 	
 	@Id
@@ -12,9 +10,11 @@ public class Category {
 	private int id;
 	private String name;
 	private List<Category> sousCategory; 
-	public Category(String name) {
+	
+	public Category(String name, List<Category> sousCategory) {
 		super();
 		this.name = name;
+		this.sousCategory = sousCategory;
 	}
 	public String getName() {
 		return name;
