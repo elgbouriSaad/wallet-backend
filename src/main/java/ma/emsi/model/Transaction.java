@@ -1,9 +1,12 @@
 package ma.emsi.model;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Transaction {
 	@Id
@@ -12,6 +15,12 @@ public class Transaction {
 	private int amount;
 	private boolean type;
 	private LocalDate date;
+
+
+	@ManyToOne()
+	private Account account;
+	@ManyToOne()
+	private Category category;
 	public Transaction(int amount, boolean type, LocalDate date) {
 		super();
 		this.amount = amount;

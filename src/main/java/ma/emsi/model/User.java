@@ -1,9 +1,15 @@
 package ma.emsi.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class User {
 	@Id
@@ -16,8 +22,13 @@ public class User {
 	private int amount;
 	private LocalDate dateSalary;
 	private int salary;
-	
-	
+
+	@OneToMany()
+	private List<Account> accounts = new ArrayList<Account>();
+
+	@OneToOne()
+	private Setting setting;
+
 	public User(String firstName, String lastName, String email, String password, int amount, LocalDate dateSalary,
 			int salary) {
 		super();

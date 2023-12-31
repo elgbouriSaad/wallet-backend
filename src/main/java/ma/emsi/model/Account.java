@@ -1,7 +1,13 @@
 package ma.emsi.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ma.emsi.model.Objective;
+import java.util.*;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Account {
 	@Id
@@ -9,11 +15,16 @@ public class Account {
 	private int id;
 	private String name;
 	private int balance;
+
+	@OneToMany()
+	private List<Objective> objectives = new ArrayList<Objective>();
+
 	public Account(String name, int balance) {
 		super();
 		this.name = name;
 		this.balance = balance;
 	}
+
 	public String getName() {
 		return name;
 	}

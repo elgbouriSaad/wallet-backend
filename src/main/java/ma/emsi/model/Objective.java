@@ -3,22 +3,24 @@ package ma.emsi.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Objective {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private int totalAmount;
-	private int amountSaved;
+	private int amount;
 	private LocalDate period;
 	
-	public Objective(String name, int totalAmount, int amountSaved, LocalDate period) {
+	public Objective(String name, int amount, LocalDate period) {
 		super();
 		this.name = name;
-		this.totalAmount = totalAmount;
-		this.amountSaved = amountSaved;
+		this.amount = amount;
 		this.period = period;
 	}
 
@@ -30,20 +32,14 @@ public class Objective {
 		this.name = name;
 	}
 
-	public int getTotalAmount() {
-		return totalAmount;
+
+
+	public int getAmount() {
+		return amount;
 	}
 
-	public void setTotalAmount(int totalAmount) {
-		this.totalAmount = totalAmount;
-	}
-
-	public int getAmountSaved() {
-		return amountSaved;
-	}
-
-	public void setAmountSaved(int amountSaved) {
-		this.amountSaved = amountSaved;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	public LocalDate getPeriod() {
