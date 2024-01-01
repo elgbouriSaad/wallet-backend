@@ -3,7 +3,6 @@ package ma.emsi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.emsi.model.Objective;
 import java.util.*;
 
 @Data
