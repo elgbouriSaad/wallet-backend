@@ -63,4 +63,28 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user) {
+        userService.registerUser(user);
+        // Implement email verification logic if needed
+        return "redirect:/login";
+    }
+
+    @GetMapping("/verify-email/{userId}")
+    public String verifyEmail(@PathVariable int userId) {
+        userService.verifyEmail(userId);
+        return "redirect:/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String email, @RequestParam String password) {
+        if (userService.verifyUser(email, password)) {
+            // Successful login
+            return "redirect:/dashboard";
+        } else {
+            // Invalid login
+            return "redirect:/login?error";
+        }
+    }
 }
