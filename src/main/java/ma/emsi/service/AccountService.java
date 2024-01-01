@@ -53,4 +53,8 @@ public class AccountService {
         Account account = getAccountById(accountId);
         accountRepository.delete(account);
     }
+
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
 }
