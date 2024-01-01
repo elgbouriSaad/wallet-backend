@@ -1,29 +1,19 @@
 package ma.emsi.service;
 
-import jakarta.servlet.http.HttpSession;
 import ma.emsi.model.User;
 import ma.emsi.repository.UserRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
 
-    public UserService(UserRepository userRepository, HttpSession httpSession) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.httpSession = httpSession;
     }
 
     @Transactional
@@ -63,42 +53,5 @@ public class UserService implements UserDetailsService {
     public void deleteUser(int id) {
         User user = getUserById(id);
         userRepository.delete(user);
-    }
-
-    public void loginUser(User user) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Store user information in the session
-        httpSession.setAttribute("user", user);
-    }
-
-    public void logoutUser() {
-        // Perform logout logic
-        SecurityContextHolder.clearContext();
-
-        // Clear user information from the session
-        httpSession.removeAttribute("user");
-    }
-
-    public User getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
-            return (User) authentication.getPrincipal();
-        }
-        return null;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + email));
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                // Add roles or authorities if needed
-                Collections.emptyList()
-        );
     }
 }

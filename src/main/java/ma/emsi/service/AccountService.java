@@ -2,7 +2,6 @@ package ma.emsi.service;
 
 import ma.emsi.model.Account;
 import ma.emsi.model.Objective;
-import ma.emsi.model.Transaction;
 import ma.emsi.repository.AccountRepository;
 import ma.emsi.repository.ObjectiveRepository;
 import org.springframework.stereotype.Service;
@@ -53,14 +52,5 @@ public class AccountService {
     public void deleteAccount(int accountId) {
         Account account = getAccountById(accountId);
         accountRepository.delete(account);
-    }
-
-    public List<Transaction> getTransactionsForAccount(int accountId) {
-        Account account = getAccountById(accountId);
-        return account.getTransactions();
-    }
-
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
     }
 }

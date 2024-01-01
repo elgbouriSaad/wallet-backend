@@ -17,9 +17,6 @@ public class Account {
 	private int balance;
 
 	@OneToMany()
-	private List<Transaction> transactions = new ArrayList<Transaction>();
-
-	@OneToMany()
 	private List<Objective> objectives = new ArrayList<Objective>();
 
 	public Account(String name, int balance) {
