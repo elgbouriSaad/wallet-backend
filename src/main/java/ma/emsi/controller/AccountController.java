@@ -1,5 +1,6 @@
 package ma.emsi.controller;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import ma.emsi.model.Account;
@@ -7,12 +8,13 @@ import ma.emsi.model.Objective;
 import ma.emsi.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
 @CrossOrigin("*")
+@RestController
 @RequestMapping("/api/v1/account")
 @AllArgsConstructor
 public class AccountController {
@@ -20,13 +22,9 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<?> createAccount(@Valid @RequestBody Account account) {
-        try {
-            Account createdAccount = accountService.createAccount(account);
-            return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @Transactional
+    public void createAccount(@RequestBody @Validated Account account) {
+        accountService.createAccount(account);
     }
 
     @GetMapping("/{accountId}")
@@ -34,16 +32,6 @@ public class AccountController {
         try {
             Account account = accountService.getAccountById(accountId);
             return ResponseEntity.ok(account);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/{accountId}/objectives")
-    public ResponseEntity<?> getObjectivesForAccount(@PathVariable int accountId) {
-        try {
-            List<Objective> objectives = accountService.getObjectivesForAccount(accountId);
-            return ResponseEntity.ok(objectives);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

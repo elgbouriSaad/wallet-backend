@@ -15,9 +15,6 @@ public class Account {
 	private String name;
 	private int balance;
 
-	@OneToMany()
-	private List<Objective> objectives = new ArrayList<Objective>();
-
 	public Account(String name, int balance) {
 		super();
 		this.name = name;
