@@ -14,11 +14,9 @@ import java.util.Optional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final ObjectiveRepository objectiveRepository;
 
-    public AccountService(AccountRepository accountRepository, ObjectiveRepository objectiveRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        this.objectiveRepository = objectiveRepository;
     }
 
     @Transactional
@@ -32,10 +30,6 @@ public class AccountService {
                 .orElseThrow(() -> new RuntimeException("Account not found with id: " + accountId));
     }
 
-    public List<Objective> getObjectivesForAccount(int accountId) {
-        Account account = getAccountById(accountId);
-        return account.getObjectives();
-    }
 
     @Transactional
     public Account updateAccount(int accountId, Account updatedAccount) {

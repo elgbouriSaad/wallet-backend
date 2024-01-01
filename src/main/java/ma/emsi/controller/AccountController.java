@@ -19,7 +19,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<?> createAccount(@Valid @RequestBody Account account) {
         try {
             Account createdAccount = accountService.createAccount(account);
@@ -39,15 +39,6 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/{accountId}/objectives")
-    public ResponseEntity<?> getObjectivesForAccount(@PathVariable int accountId) {
-        try {
-            List<Objective> objectives = accountService.getObjectivesForAccount(accountId);
-            return ResponseEntity.ok(objectives);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
 
     @PutMapping("/{accountId}")
     public ResponseEntity<?> updateAccount(@PathVariable int accountId, @Valid @RequestBody Account updatedAccount) {
