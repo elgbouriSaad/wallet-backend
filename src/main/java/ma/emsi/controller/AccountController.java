@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import ma.emsi.model.Account;
 import ma.emsi.model.Objective;
+import ma.emsi.model.Transaction;
 import ma.emsi.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,18 @@ public class AccountController {
         }
     }
 
+
+
+    @GetMapping("/{accountId}/transactions")
+    public ResponseEntity<?> getTransactionsForAccount(@PathVariable int accountId) {
+        try {
+            List<Transaction> transactions = accountService.getTransactionsForAccount(accountId);
+            return ResponseEntity.ok(transactions);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/{accountId}/objectives")
     public ResponseEntity<?> getObjectivesForAccount(@PathVariable int accountId) {
         try {
@@ -66,6 +79,16 @@ public class AccountController {
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllAccounts() {
+        try {
+            List<Account> accounts = accountService.getAllAccounts();
+            return ResponseEntity.ok(accounts);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }
