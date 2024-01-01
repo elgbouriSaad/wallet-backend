@@ -59,4 +59,8 @@ public class AccountService {
         Account account = getAccountById(accountId);
         return account.getTransactions();
     }
+
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
 }

@@ -40,6 +40,8 @@ public class AccountController {
         }
     }
 
+
+
     @GetMapping("/{accountId}/transactions")
     public ResponseEntity<?> getTransactionsForAccount(@PathVariable int accountId) {
         try {
@@ -77,6 +79,16 @@ public class AccountController {
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllAccounts() {
+        try {
+            List<Account> accounts = accountService.getAllAccounts();
+            return ResponseEntity.ok(accounts);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }
