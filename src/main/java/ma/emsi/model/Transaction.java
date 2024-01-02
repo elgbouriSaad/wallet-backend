@@ -17,10 +17,12 @@ public class Transaction {
 	private LocalDate date;
 
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Account account;
-	@ManyToOne()
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Category category;
+
 	public Transaction(int amount, boolean type, LocalDate date) {
 		super();
 		this.amount = amount;

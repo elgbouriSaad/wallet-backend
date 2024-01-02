@@ -18,7 +18,7 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<?> createTransaction(@Valid @RequestBody Transaction transaction) {
         try {
             Transaction createdTransaction = transactionService.createTransaction(transaction);
